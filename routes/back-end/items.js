@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 /* GET items listing. */
-router.get('/list', function(req, res, next) {
+router.get('/', function(req, res, next) {
   res.render('page/items/item-list', { title: 'Item List Page' });
 });
 

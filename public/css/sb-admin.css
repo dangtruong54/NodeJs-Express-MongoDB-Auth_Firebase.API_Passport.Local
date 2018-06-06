@@ -327,3 +327,13 @@ table.dataTable thead .sorting:after {
 .show-grid {
     margin: 15px 0;
 }
+/* message notify */
+.close-btn {
+    line-height: 20px;
+    cursor: pointer;
+    float: right;
+    font-weight: bold;
+    font-size: 22px;
+    margin-left: 15px;
+    color: #d9534f;
+}
