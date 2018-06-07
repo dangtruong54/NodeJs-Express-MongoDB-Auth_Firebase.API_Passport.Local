@@ -1,3 +1,3 @@
 module.exports = {
-    systemAdmin: 'Admin123'
+    systemAdmin: 'admin'
 }

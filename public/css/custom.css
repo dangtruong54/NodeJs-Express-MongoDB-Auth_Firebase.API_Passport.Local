@@ -44,3 +44,7 @@ li.active > a:first-child{
 .ad-pagination{
     float: right;
 }
+
+.img-error-404 {
+    height: 500px
+}
