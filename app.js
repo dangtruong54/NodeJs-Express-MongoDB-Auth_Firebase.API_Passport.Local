@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var expressLayouts = require('express-ejs-layouts');
+const mongoose = require('mongoose');
 
 var app = express();
 
@@ -28,6 +29,25 @@ app.locals.sysConfig = sysConfig;
 
 app.use(`/${sysConfig.systemAdmin}`, require('./routes/back-end/index'));
 app.use('/', require('./routes/front-end/index'));
+
+mongoose.connect('mongodb://truongdx:thaibinh1991@ds229435.mlab.com:29435/nodejs_trainning');
+var db = mongoose.connection;
+db.on('error', () => {
+  console.log('Connection error!');  
+})
+db.once('open', () => {
+  console.log('Connection success!')
+})
+
+var kittySchema = mongoose.Schema({
+  name: String
+});
+
+var Kitten = mongoose.model('Kitten', kittySchema);
+
+var silence = new Kitten({ name: 'Silence' });
+
+console.log(silence.name);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
