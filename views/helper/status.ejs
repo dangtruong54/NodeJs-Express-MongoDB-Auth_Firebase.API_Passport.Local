@@ -1,0 +1,9 @@
+<% statusHelper = (status, link) => { %> 
+    <a href="#">
+        <% if (status == 1) { %>             
+                <span class="label label-success">active</span>
+        <% }else { %>        
+                <span class="label label-danger">inactive</span>
+        <% } %>
+    </a>
+<% }%>
