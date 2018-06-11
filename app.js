@@ -6,6 +6,18 @@ var logger = require('morgan');
 
 var expressLayouts = require('express-ejs-layouts');
 
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb://truongdx:thaibinh1991@ds229435.mlab.com:29435/nodejs_trainning');
+var db = mongoose.connection;
+
+db.on('error', () => {
+  console.log('connected error!')
+});
+db.once('open', () => {
+  console.log('Connected!');
+})
+
 var app = express();
 
 // view engine setup
