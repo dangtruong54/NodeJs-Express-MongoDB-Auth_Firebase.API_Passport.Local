@@ -1,15 +1,21 @@
 var express = require('express');
 var router = express.Router();
 const ItemsModel = require('./../../schemas/items');
+const UtilsHelper = require('./../../helper/utils');
 
 /* GET items listing. */
-router.get('/', (req, res, next) => {
-	ItemsModel.find({}).then( (items) => {
-		const statusActive = [
-			{name: 'All',count: 3, link: '#', class: 'default'},
-			{name: 'Active',count: 2, link: '#', class: 'success'},
-			{name: 'InActive',count: 1, link: '#', class: 'default'}
-		]
+router.get('(/:status)?', (req, res, next) => {
+	let requestStatus = req.params.status;
+	requestStatus = (requestStatus == undefined) ? 'all' : requestStatus;
+
+	let objWhere = {};
+
+	if(requestStatus != 'all') objWhere = {status: requestStatus}
+	console.log(objWhere);
+	
+	ItemsModel.find({status: 'inactive'}).then( (items) => {	
+	
+		const statusActive = UtilsHelper.statusHelper(items, requestStatus);
 		res.render(
 			'page/items/item-list',
 			{ 
@@ -17,12 +23,13 @@ router.get('/', (req, res, next) => {
 				items: items,
 				statusActive: statusActive
 			}
-		);
+		);   
 	})
+	
 });
 
 router.get('/add', function (req, res, next) {
-	res.render('page/items/item-add', { title: 'Add Item Page' });
+	res.render('./../views/page/items/item-add', { title: 'Add Item Page' });
 });
 
 module.exports = router;

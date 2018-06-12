@@ -1,0 +1,9 @@
+<% filterStatusHelper = (statusActive) => { %> 
+    <% statusActive.forEach( (item) => { %>
+        <a class="btn m-b-sm btn-<%= item.class %> btn-sm" href="<%=sysConfig.systemAdmin%>/items/<%= item.value %>">
+            <%= item.name.toUpperCase() + "(" + item.count + ")" %> 
+        </a>       
+    <% }) %> 
+<% }%>
+
+    
