@@ -8,23 +8,41 @@ router.get('(/:status)?', (req, res, next) => {
 	let requestStatus = req.params.status;
 	requestStatus = (requestStatus == undefined) ? 'all' : requestStatus;
 
+	let requestQuery = '';
+	requestQuery = req.query.keyword ? req.query.keyword : requestQuery;
+
 	let objWhere = {};
 
-	if(requestStatus != 'all') objWhere = {status: requestStatus}
-	console.log(objWhere);
+	if(requestStatus != 'all') {
+		objWhere = {
+			status: requestStatus,
+			name : new RegExp(requestQuery, 'i')
+		}
+	} else {
+		objWhere = {			
+			name : new RegExp(requestQuery, 'i')
+		}
+	};
 	
-	ItemsModel.find({status: 'inactive'}).then( (items) => {	
-	
-		const statusActive = UtilsHelper.statusHelper(items, requestStatus);
-		res.render(
-			'page/items/item-list',
-			{ 
-				title: 'Item List Page',
-				items: items,
-				statusActive: statusActive
-			}
-		);   
+	ItemsModel.find({}).then(function(items) {
+		statusActive = UtilsHelper.statusHelper(items, requestStatus);
 	})
+	
+	ItemsModel
+		.find(objWhere)
+		.sort({ordering: 'asc'})
+		.then( (items) => {			
+			res.render(
+				'page/items/item-list',
+				{ 
+					title: 'Item List Page',
+					items,
+					statusActive,
+					requestStatus,
+					requestQuery			
+				}
+			);   
+		})
 	
 });
 

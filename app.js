@@ -28,7 +28,7 @@ app.use(expressLayouts);
 
 app.set('layout', 'backend');
 
-app.use(logger('dev'));
+// app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
