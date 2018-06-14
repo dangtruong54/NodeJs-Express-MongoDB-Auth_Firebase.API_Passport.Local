@@ -5,8 +5,9 @@ const UtilsHelper = require('./../../helper/utils');
 
 /* GET items listing. */
 router.get('(/:status)?', (req, res, next) => {
-	let requestStatus = req.params.status;
-	requestStatus = (requestStatus == undefined) ? 'all' : requestStatus;
+	let requestStatus = "";
+	 	requestStatus = req.params.status;
+		requestStatus = (requestStatus == undefined) ? 'all' : requestStatus;
 
 	let requestQuery = '';
 	requestQuery = req.query.keyword ? req.query.keyword : requestQuery;
@@ -19,11 +20,26 @@ router.get('(/:status)?', (req, res, next) => {
 			name : new RegExp(requestQuery, 'i')
 		}
 	} else {
-		objWhere = {			
-			name : new RegExp(requestQuery, 'i')
-		}
+		objWhere = {name : new RegExp(requestQuery, 'i')};
 	};
 	
+	let currentPage = 1;
+	currentPage =  parseInt(req.query.page) ? parseInt(req.query.page) : currentPage;
+
+	let totalItem = 1;
+
+	let paramsPagination = {
+		totalItem,
+		currentPage,
+		itemPerPage: 2
+	}	
+	
+	ItemsModel.count(objWhere).then(function(items) {
+		paramsPagination.totalItem = items;
+	})
+
+	let statusActive = [];
+
 	ItemsModel.find({}).then(function(items) {
 		statusActive = UtilsHelper.statusHelper(items, requestStatus);
 	})
@@ -31,6 +47,8 @@ router.get('(/:status)?', (req, res, next) => {
 	ItemsModel
 		.find(objWhere)
 		.sort({ordering: 'asc'})
+		.limit(paramsPagination.itemPerPage)
+		.skip((paramsPagination.curentPage - 1) * paramsPagination.itemPerPage)
 		.then( (items) => {			
 			res.render(
 				'page/items/item-list',
@@ -39,7 +57,8 @@ router.get('(/:status)?', (req, res, next) => {
 					items,
 					statusActive,
 					requestStatus,
-					requestQuery			
+					requestQuery,
+					paramsPagination			
 				}
 			);   
 		})

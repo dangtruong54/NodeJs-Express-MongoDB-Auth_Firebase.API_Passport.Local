@@ -1,13 +1,16 @@
-<% filterStatusHelper = (statusActive, requestQuery) => {%> 
-    <% 
+<% 
+    filterStatusHelper = (statusActive, requestQuery) => {
+        let xhtml = "";
         statusActive.forEach( (item) => {
             let link = sysConfig.systemAdmin + "/items/" + item.value ;
             if(requestQuery != ''  &&  requestQuery != undefined) {
                 link = link + "?keyword=" + requestQuery;
             }
-    %>
-        <a class="btn m-b-sm btn-<%= item.class %> btn-sm" href="<%= link %>">
-            <%= item.name.toUpperCase() + "(" + item.count + ")" %> 
-        </a>       
-    <% }) %> 
-<% }%>   
+    
+            xhtml += `<a class="btn m-b-sm btn-${item.class} btn-sm" href="${link}">
+                        ${item.name.toUpperCase()} (${item.count})  
+                    </a> `;       
+        });
+        return xhtml;        
+    }
+%>   
