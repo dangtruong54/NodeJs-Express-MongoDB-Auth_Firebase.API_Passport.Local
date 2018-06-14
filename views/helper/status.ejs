@@ -1,9 +1,11 @@
-<% statusHelper = (status) => { %> 
-    <a href="#">
-        <% if (status == 'active') { %>             
-                <span class="label label-success">active</span>
-        <% }else { %>        
-                <span class="label label-danger">inactive</span>
-        <% } %>
-    </a>
-<% }%>
+<% 
+    statusHelper = (status, link) => {
+        let xhtml = '';
+        if (status == 'active') {         
+            xhtml = `<a href="${link}"><span class="label label-success">active</span></a>`;
+        } else { 
+            xhtml = `<a href="${link}"><span class="label label-danger">inactive</span></a>`;
+        }
+        return xhtml;
+    }
+%>
