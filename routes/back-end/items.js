@@ -32,19 +32,16 @@ router.get('(/:status)?', (req, res, next) => {
 		totalItem,
 		currentPage,
 		itemPerPage: 2
-	}	
-	
-	ItemsModel.count(objWhere).then(function(items) {
-		paramsPagination.totalItem = items;
-	})
-
+	}
 	let statusActive = [];
 
 	ItemsModel.find({}).then(function(items) {
 		statusActive = UtilsHelper.statusHelper(items, requestStatus);
-	})
-	
-	ItemsModel
+	})		
+
+	ItemsModel.count(objWhere).then(function(items) {
+		paramsPagination.totalItem = items;
+		ItemsModel
 		.find(objWhere)
 		.sort({ordering: 'asc'})
 		.limit(paramsPagination.itemPerPage)
@@ -62,6 +59,7 @@ router.get('(/:status)?', (req, res, next) => {
 				}
 			);   
 		})
+	})
 	
 });
 

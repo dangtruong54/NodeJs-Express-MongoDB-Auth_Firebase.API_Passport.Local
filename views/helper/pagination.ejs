@@ -10,12 +10,7 @@
 
         if(to > totalItem) to = totalItem;
 
-        let xhtmlPagination     = '';
-        let xhtmlStart          = '<li class="disable"><a>Start</a></li>';
-        let xhtmlPrevious       = '<li class="disable"><a>Previous</a></li>';
-        let xhtmlNext           = '';
-        let xhtmlPage           = '';
-        let xhtmlEnd            = '';
+        let xhtmlPagination = '', xhtmlStart = '', xhtmlPrevious = '', xhtmlNext = '', xhtmlPages = '', xhtmlEnd = '';
         let link                = sysConfig.systemAdmin + '/items/';
 
         if(currentPage > 1) {
@@ -23,7 +18,12 @@
             xhtmlPrevious = `<li><a href="${link}?page=${currentPage-1}">Previous</a></li>`;
         }
 
-        xhtmlPagination = '<ul class="pagination text-center">' + xhtmlStart + xhtmlPrevious + xhtmlNext + xhtmlPage + xhtmlEnd + '</ul>';
+        if(currentPage < totalPage) {
+            xhtmlEnd  = `<li><a href="${link}?page=${totalPage}">End</a></li>`;
+            xhtmlNext = `<li><a href="${link}?page=${currentPage+1}">Next</a></li>`;
+        }
+
+        xhtmlPagination = '<ul class="pagination text-center">' + xhtmlStart + xhtmlPrevious + xhtmlNext + xhtmlPages + xhtmlEnd + '</ul>';
 
         return `
             <div class="panel panel-info" id="pagination">
