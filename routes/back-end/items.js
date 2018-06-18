@@ -31,15 +31,18 @@ router.get('(/:status)?', (req, res, next) => {
 	let paramsPagination = {
 		totalItem,
 		currentPage,
-		itemPerPage: 2
+		itemPerPage: 1,
+		pageRanges: 3	
 	}
 	let statusActive = [];
 
 	ItemsModel.find({}).then(function(items) {
 		statusActive = UtilsHelper.statusHelper(items, requestStatus);
 	})		
-
+	
 	ItemsModel.count(objWhere).then(function(items) {
+		console.log(items);
+		
 		paramsPagination.totalItem = items;
 		ItemsModel
 		.find(objWhere)
@@ -55,7 +58,7 @@ router.get('(/:status)?', (req, res, next) => {
 					statusActive,
 					requestStatus,
 					requestQuery,
-					paramsPagination			
+					paramsPagination									
 				}
 			);   
 		})

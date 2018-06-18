@@ -4,7 +4,8 @@
         let totalItem   = paramsPagination.totalItem;
         let totalPage   = Math.ceil(totalItem / paramsPagination.itemPerPage);
         let itemPerPage = paramsPagination.itemPerPage;
-        let currentPage = paramsPagination.currentPage
+        let currentPage = paramsPagination.currentPage;
+        let pageRanges = paramsPagination.pageRanges;
         let to          = itemPerPage * currentPage;
         let from        = to - itemPerPage + 1;
 
@@ -21,6 +22,29 @@
         if(currentPage < totalPage) {
             xhtmlEnd  = `<li><a href="${link}?page=${totalPage}">End</a></li>`;
             xhtmlNext = `<li><a href="${link}?page=${currentPage+1}">Next</a></li>`;
+        }
+
+        let min = 1, max = totalPage;
+        let middle = Math.ceil(pageRanges/2);
+        min = currentPage - middle + 1;
+        max = min + pageRanges - 1;
+
+        if(min < 1) {
+            min = 1;
+            max = pageRanges;
+        }
+
+        if(max >= totalPage) {
+            max = totalPage;
+            min = max - pageRanges + 1;
+        }
+
+        for(let i = min; i <= max; i++) {
+            if(i == currentPage) {
+                xhtmlPages += `<li class="active"><a>${i}</a></li>`;
+            }else {
+                xhtmlPages += `<li><a href="${link}?page=${i}">${i}</a></li>`;
+            }
         }
 
         xhtmlPagination = '<ul class="pagination text-center">' + xhtmlStart + xhtmlPrevious + xhtmlNext + xhtmlPages + xhtmlEnd + '</ul>';
