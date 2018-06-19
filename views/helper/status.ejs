@@ -1,6 +1,7 @@
 <% 
-    statusHelper = (status, link) => {
+    statusHelper = (status, id, type) => {
         let xhtml = '';
+        let link = sysConfig.systemAdmin + '/' + type + '/change-status/' + id  +'/' + status;
         if (status == 'active') {         
             xhtml = `<a href="${link}"><span class="label label-success">active</span></a>`;
         } else { 

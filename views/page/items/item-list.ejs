@@ -96,7 +96,7 @@
                                                 <%= item.name %>
                                             </td>
                                             <td>
-                                                <%- statusHelper(item.status, "#") %>
+                                                <%- statusHelper(item.status, item.id, 'items') %>
                                             </td>
                                             <td>
                                                 <input type="number" value="<%= item.ordering %>" class="text-center ordering">

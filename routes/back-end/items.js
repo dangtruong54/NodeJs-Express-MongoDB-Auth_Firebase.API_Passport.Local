@@ -63,6 +63,12 @@ router.get('(/:status)?', (req, res, next) => {
 	})
 });
 
+router.get('/change-status/:id/:status', function (req, res, next) {
+	let id = req.params.id ? req.params.id : '';
+	let currentStatus = req.params.status ? req.params.status : '';
+	res.send(id + '-' + currentStatus);
+});
+
 router.get('/add', function (req, res, next) {
 	res.render('./../views/page/items/item-add', { title: 'Add Item Page' });
 });
