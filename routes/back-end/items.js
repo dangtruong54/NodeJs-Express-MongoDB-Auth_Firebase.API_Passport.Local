@@ -41,14 +41,12 @@ router.get('(/:status)?', (req, res, next) => {
 	})		
 	
 	ItemsModel.count(objWhere).then(function(items) {
-		console.log(items);
-		
 		paramsPagination.totalItem = items;
 		ItemsModel
 		.find(objWhere)
 		.sort({ordering: 'asc'})
 		.limit(paramsPagination.itemPerPage)
-		.skip((paramsPagination.curentPage - 1) * paramsPagination.itemPerPage)
+		.skip((paramsPagination.currentPage - 1) * paramsPagination.itemPerPage)
 		.then( (items) => {			
 			res.render(
 				'page/items/item-list',
@@ -63,7 +61,6 @@ router.get('(/:status)?', (req, res, next) => {
 			);   
 		})
 	})
-	
 });
 
 router.get('/add', function (req, res, next) {

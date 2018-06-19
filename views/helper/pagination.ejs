@@ -1,5 +1,5 @@
 <% 
-    paginationHelper = (paramsPagination) => { 
+    paginationHelper = (paramsPagination, type, requestStatus, requestQuery) => { 
 
         let totalItem   = paramsPagination.totalItem;
         let totalPage   = Math.ceil(totalItem / paramsPagination.itemPerPage);
@@ -12,38 +12,43 @@
         if(to > totalItem) to = totalItem;
 
         let xhtmlPagination = '', xhtmlStart = '', xhtmlPrevious = '', xhtmlNext = '', xhtmlPages = '', xhtmlEnd = '';
-        let link                = sysConfig.systemAdmin + '/items/';
+
+        let link                = sysConfig.systemAdmin + '/' + type + '/' + requestStatus;
+        if(requestQuery !== '') link += '?keyword=' + requestQuery + '&page=';
+        else link += '?page=';
 
         if(currentPage > 1) {
-            xhtmlStart = `<li><a href="${link}?page=1">Start</a></li>`;
-            xhtmlPrevious = `<li><a href="${link}?page=${currentPage-1}">Previous</a></li>`;
+            xhtmlStart = `<li><a href="${link}1">Start</a></li>`;
+            xhtmlPrevious = `<li><a href="${link}${currentPage-1}">Previous</a></li>`;
         }
 
         if(currentPage < totalPage) {
-            xhtmlEnd  = `<li><a href="${link}?page=${totalPage}">End</a></li>`;
-            xhtmlNext = `<li><a href="${link}?page=${currentPage+1}">Next</a></li>`;
+            xhtmlEnd  = `<li><a href="${link}${totalPage}">End</a></li>`;
+            xhtmlNext = `<li><a href="${link}${currentPage+1}">Next</a></li>`;
         }
 
         let min = 1, max = totalPage;
         let middle = Math.ceil(pageRanges/2);
         min = currentPage - middle + 1;
         max = min + pageRanges - 1;
-
-        if(min < 1) {
-            min = 1;
+     
+        if(min <= 1) {
+            min = 1;        
             max = pageRanges;
         }
 
         if(max >= totalPage) {
             max = totalPage;
-            min = max - pageRanges + 1;
+            min = ((max - pageRanges + 1) >= 1 ) ? (max - pageRanges + 1) : 1;
         }
-
+        console.log(min);
+        console.log(pageRanges);
         for(let i = min; i <= max; i++) {
+       
             if(i == currentPage) {
                 xhtmlPages += `<li class="active"><a>${i}</a></li>`;
             }else {
-                xhtmlPages += `<li><a href="${link}?page=${i}">${i}</a></li>`;
+                xhtmlPages += `<li><a href="${link}${i}">${i}</a></li>`;
             }
         }
 
