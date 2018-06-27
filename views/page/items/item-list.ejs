@@ -48,16 +48,16 @@
                     <div class="zcontrols">
                         <select name="action" class="form-control slbAction">
                             <option value="">Bulk Action</option>
-                            <option value="admin123/item/change-status/active">
+                            <option value="<%= sysConfig.systemAdmin %>/items/change-status/active">
                                 Active
                             </option>
-                            <option value="admin123/item/change-status/inactive">
+                            <option value="<%= sysConfig.systemAdmin %>/items/change-status/inactive">
                                 InActive
                             </option>
-                            <option value="admin123/item/save-ordering/">
+                            <option value="<%= sysConfig.systemAdmin %>/items/save-ordering/">
                                 Change Ordering
                             </option>
-                            <option value="admin123/item/delete/">
+                            <option value="<%= sysConfig.systemAdmin %>/items/delete/">
                                 Delete
                             </option>
                         </select>
@@ -103,7 +103,7 @@
                                             </td>
                                             <td>
                                                 <a href="#" type="button" class="btn btn-warning btn-sm">Edit</a>
-                                                <a href="#" type="button" class="btn btn-danger btn-sm btn-delete">Delete</a>
+                                                <a href="<%= sysConfig.systemAdmin %>/items/delete/<%= item.id %>" type="button" class="btn btn-danger btn-sm btn-delete">Delete</a>
                                             </td>
                                         </tr>
                                     <%  }) %>

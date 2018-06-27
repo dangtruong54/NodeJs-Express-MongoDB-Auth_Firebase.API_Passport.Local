@@ -3,6 +3,8 @@ var router = express.Router();
 const ItemsModel = require('./../../schemas/items');
 const UtilsHelper = require('./../../helper/utils');
 
+const sysConfig = require('./../../configs/system');
+
 /* GET items listing. */
 router.get('(/:status)?', (req, res, next) => {
 	let requestStatus = "";
@@ -31,7 +33,7 @@ router.get('(/:status)?', (req, res, next) => {
 	let paramsPagination = {
 		totalItem,
 		currentPage,
-		itemPerPage: 1,
+		itemPerPage: 2,
 		pageRanges: 3
 	}
 	let statusActive = [];
@@ -81,8 +83,25 @@ router.get('/change-status/:id/:status', function (req, res, next) {
 	// });
 
 	ItemsModel.updateOne({ _id: id }, { status: status }, function (err, result) {
-		res.redirect('/admin/items/');
+		res.redirect(`/${sysConfig.systemAdmin}/items/`);
 	});
+});
+
+router.get('/delete/:id', function (req, res, next) {
+	let id = req.params.id ? req.params.id : '';
+
+	ItemsModel.deleteOne({ _id: id }, function (err) {
+		if (err) return handleError(err);
+		res.redirect(`/${sysConfig.systemAdmin}/items/`);		
+	  });
+});
+
+router.get('/delete', function (req, res, next) {
+	
+	ItemsModel.remove({ _id: { $in: req.body.cid}}, function (err) {
+		if (err) return handleError(err);
+		res.redirect(`/${sysConfig.systemAdmin}/items/`);		
+	  });
 });
 
 router.get('/add', function (req, res, next) {
