@@ -87,7 +87,7 @@
                                     <% items.forEach((item, index) => { %>
                                         <tr>
                                             <td>
-                                                <input type="checkbox" name="cid" value="5a9e5a96da67bc078421d7d6" />
+                                                <input type="checkbox" name="cid" value="<%= item.id %>" />
                                             </td>
                                             <td>
                                                 <%= index + 1%>
@@ -99,7 +99,7 @@
                                                 <%- statusHelper(item.status, item.id, 'items') %>
                                             </td>
                                             <td>
-                                                <input type="number" value="<%= item.ordering %>" class="text-center ordering">
+                                                <input type="number" name="ordering" value="<%= item.ordering %>" class="text-center ordering">
                                             </td>
                                             <td>
                                                 <a href="#" type="button" class="btn btn-warning btn-sm">Edit</a>

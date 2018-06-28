@@ -92,16 +92,33 @@ router.get('/delete/:id', function (req, res, next) {
 
 	ItemsModel.deleteOne({ _id: id }, function (err) {
 		if (err) return handleError(err);
-		res.redirect(`/${sysConfig.systemAdmin}/items/`);		
-	  });
+		res.redirect(`/${sysConfig.systemAdmin}/items/`);
+	});
 });
 
 router.get('/delete', function (req, res, next) {
-	
-	ItemsModel.remove({ _id: { $in: req.body.cid}}, function (err) {
+
+	ItemsModel.remove({ _id: { $in: req.body.cid } }, function (err) {
 		if (err) return handleError(err);
-		res.redirect(`/${sysConfig.systemAdmin}/items/`);		
-	  });
+		res.redirect(`/${sysConfig.systemAdmin}/items/`);
+	});
+});
+
+router.post('/save-ordering', function (req, res, next) {
+	let id = req.body.cid ? req.body.cid : null;
+	let ordering = req.body.ordering ? req.body.ordering : null;
+
+	console.log(id);
+	console.log(ordering);
+	res.send();
+	// ItemsModel.update(
+	// 	{ _id: { $in: id } },
+	// 	{ $set: { ordering: ordering } },
+	// 	function (err, result) {
+	// 		if (err) return handleError(err);
+	// 		res.redirect(`/${sysConfig.systemAdmin}/items/`);
+	// 	}
+	// )
 });
 
 router.get('/add', function (req, res, next) {
