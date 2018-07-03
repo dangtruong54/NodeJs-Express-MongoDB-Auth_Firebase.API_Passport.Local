@@ -1,8 +1,8 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-var cookieParser = require('cookie-parser');
 const flash = require('express-flash-notification');
+const cookieParser = require('cookie-parser');
 const session = require('express-session');
 var logger = require('morgan');
 
@@ -24,10 +24,9 @@ var app = express();
 
 app.use(cookieParser());
 app.use(session({
-  secret: '11111ww',
+  secret: '456tndndm333',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: true }
 }))
 app.use(flash(app));
 

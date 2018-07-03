@@ -6,7 +6,7 @@ const UtilsHelper = require('./../../helper/utils');
 const sysConfig = require('./../../configs/system');
 
 /* GET items listing. */
-router.get('(status/:status)?', (req, res, next) => {
+router.get('(/:status)?', (req, res, next) => {
 	let requestStatus = "";
 	requestStatus = req.params.status;
 	requestStatus = (requestStatus == undefined) ? 'all' : requestStatus;
@@ -66,6 +66,7 @@ router.get('(status/:status)?', (req, res, next) => {
 });
 
 router.get('/change-status/:id/:status', function (req, res, next) {
+	
 	let id = req.params.id ? req.params.id : '';
 	let currentStatus = req.params.status ? req.params.status : '';
 
@@ -91,7 +92,7 @@ router.get('/change-status/:id/:status', function (req, res, next) {
 router.post('/change-status/:status', function (req, res, next) {
 
 	let currentStatus = req.params.status ? req.params.status : '';
-	ItemsModel.updateMany({ _id: {$in: req.body.cid} }, { status: currentStatus }, function (err, result) {
+	ItemsModel.updateMany({ _id: {$in: req.body.cid} }, { status: currentStatus }, function (err, result) {		
 		req.flash('success', 'Cap nhat nhieu trang thai thanh cong', false);
 		res.redirect(`/${sysConfig.systemAdmin}/items/`);
 	});
@@ -107,13 +108,11 @@ router.get('/delete/:id', function (req, res, next) {
 	});
 });
 
-
-
-router.get('/delete', function (req, res, next) {
-
-	ItemsModel.remove({ _id: { $in: req.body.cid } }, function (err) {
+router.post('/delete', function (req, res, next) {
+	
+	ItemsModel.remove({ _id: { $in: req.body.cid } }, function (err) {			
 		if (err) return handleError(err);
-		req.flash('warning', 'Xoa nhieu item thanh cong', false);
+		req.flash('warning', `Xoa ${req.body.cid.length} item thanh cong`, false);
 		res.redirect(`/${sysConfig.systemAdmin}/items/`);
 	});
 });
@@ -122,21 +121,18 @@ router.post('/save-ordering', function (req, res, next) {
 	let id = req.body.cid ? req.body.cid : null;
 	let ordering = req.body.ordering ? req.body.ordering : null;
 
-	console.log(id);
-	console.log(ordering);
 	res.send();
-	// ItemsModel.update(
-	// 	{ _id: { $in: id } },
-	// 	{ $set: { ordering: ordering } },
-	// 	function (err, result) {
-	// 		if (err) return handleError(err);
-	// 		res.redirect(`/${sysConfig.systemAdmin}/items/`);
-	// 	}
-	// )
+	ItemsModel.update(
+		{ _id: { $in: id } },
+		{ $set: { ordering: ordering } },
+		function (err, result) {
+			if (err) return handleError(err);
+			res.redirect(`/${sysConfig.systemAdmin}/items/`);
+	});
 });
 
 router.get('/add', function (req, res, next) {
-	res.render('./../views/page/items/item-add', { title: 'Add Item Page' });
+	res.render('./../views/page/items/item-add', { title: 'Add Item Page' });	
 });
 
 module.exports = router;
