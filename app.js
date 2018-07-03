@@ -2,6 +2,8 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
+const flash = require('express-flash-notification');
+const session = require('express-session');
 var logger = require('morgan');
 
 var expressLayouts = require('express-ejs-layouts');
@@ -19,6 +21,15 @@ db.once('open', () => {
 })
 
 var app = express();
+
+app.use(cookieParser());
+app.use(session({
+  secret: '11111ww',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}))
+app.use(flash(app));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
