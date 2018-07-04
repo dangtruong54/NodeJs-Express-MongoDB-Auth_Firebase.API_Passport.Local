@@ -61,7 +61,7 @@
                         </select>
                         <button class="btn btn-info btnAction" type="button" id="btn-action" value="btnAction" disabled>Apply</button>
                         <div class="pull-right">
-                            <a href="<%= sysConfig.systemAdmin %>/items/add" class="btn btn-warning btn-addNew">Add New
+                            <a href="<%= sysConfig.systemAdmin %>/items/form" class="btn btn-warning btn-addNew">Add New
                             </a>
                         </div>
                     </div>
@@ -100,7 +100,7 @@
                                                 <input type="number" name="ordering" value="<%= item.ordering %>" class="text-center ordering">
                                             </td>
                                             <td>
-                                                <a href="#" type="button" class="btn btn-warning btn-sm">Edit</a>
+                                                <a href="<%= sysConfig.systemAdmin %>/items/add/<%= item.id %>" type="button" class="btn btn-warning btn-sm">Edit</a>
                                                 <a href="<%= sysConfig.systemAdmin %>/items/delete/<%= item.id %>" type="button" class="btn btn-danger btn-sm btn-delete">Delete</a>
                                             </td>
                                         </tr>

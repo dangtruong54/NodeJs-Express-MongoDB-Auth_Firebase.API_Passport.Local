@@ -5,8 +5,12 @@ const UtilsHelper = require('./../../helper/utils');
 
 const sysConfig = require('./../../configs/system');
 
+const pageTitle = 'Item Manage';
+const pageTitleAdd = pageTitle + '- Add';
+const pageTitleEdit = pageTitle + '- Edit';
+
 /* GET items listing. */
-router.get('(/:status)?', (req, res, next) => {
+router.get('(status/:status)?', (req, res, next) => {
 	let requestStatus = "";
 	requestStatus = req.params.status;
 	requestStatus = (requestStatus == undefined) ? 'all' : requestStatus;
@@ -53,7 +57,7 @@ router.get('(/:status)?', (req, res, next) => {
 				res.render(
 					'page/items/item-list',
 					{
-						title: 'Item List Page',
+						title: pageTitle + ' List',
 						items,
 						statusActive,
 						requestStatus,
@@ -131,8 +135,13 @@ router.post('/save-ordering', function (req, res, next) {
 	});
 });
 
-router.get('/add', function (req, res, next) {
-	res.render('./../views/page/items/item-add', { title: 'Add Item Page' });	
+router.get('/add(/:id)?', function (req, res, next) {
+	const id = (req.params.id !== '') ? req.params.id : '';
+	if(id === '') {
+		res.render('./../views/page/items/form', { title: pageTitleAdd });
+	}else {
+		res.render('./../views/page/items/form', { title: pageTitleEdit });
+	}		
 });
 
 module.exports = router;
