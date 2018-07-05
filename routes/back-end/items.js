@@ -10,7 +10,7 @@ const pageTitleAdd = pageTitle + '- Add';
 const pageTitleEdit = pageTitle + '- Edit';
 
 /* GET items listing. */
-router.get('(status/:status)?', (req, res, next) => {
+router.get('(/status/:status)?', (req, res, next) => {
 	let requestStatus = "";
 	requestStatus = req.params.status;
 	requestStatus = (requestStatus == undefined) ? 'all' : requestStatus;
@@ -125,22 +125,61 @@ router.post('/save-ordering', function (req, res, next) {
 	let id = req.body.cid ? req.body.cid : null;
 	let ordering = req.body.ordering ? req.body.ordering : null;
 
-	res.send();
-	ItemsModel.update(
-		{ _id: { $in: id } },
-		{ $set: { ordering: ordering } },
-		function (err, result) {
-			if (err) return handleError(err);
+	if(!Array.isArray(id)) {
+		ItemsModel.updateOne({ _id: id }, { ordering: parseInt(ordering) }, function (err, result) {
+			req.flash('info', 'Thay doi ordering thanh cong', false);
 			res.redirect(`/${sysConfig.systemAdmin}/items/`);
-	});
+		});
+	}else{
+		id.map((item, index) => {
+			ItemsModel.update({ _id: item }, { ordering: ordering[index]}, (err, affect, resp) => {
+			});
+		});
+		req.flash('info', 'Cap nhat ordering thanh cong', false);
+		res.redirect(`/${sysConfig.systemAdmin}/items/`);
+	}	
 });
+
+router.post('/save', function (req, res, next) {
+	let id = req.body.id ? req.body.id : '';
+	let name = req.body.name ? req.body.name : null;
+	let ordering = req.body.ordering ? req.body.ordering : null;
+	let status = req.body.status ? req.body.status : null;
+
+	let item = { name: name, ordering: ordering, status: status };
+
+	if(id === '') {
+		console.log('aa');
+		new ItemsModel(item).save().then((err) => {	
+			req.flash('info', `Them moi item thanh cong`, false);
+			res.redirect(`/${sysConfig.systemAdmin}/items/`);
+		});
+	} else {
+		console.log('bbbb');
+		ItemsModel.update({ _id: id }, {name: name, status:  status, status: status}, (err, affect, resp) => {
+			req.flash('info', `Chinh sua item thanh cong`, false);
+			res.redirect(`/${sysConfig.systemAdmin}/items/`);
+		});		
+	}
+})
 
 router.get('/add(/:id)?', function (req, res, next) {
 	const id = (req.params.id !== '') ? req.params.id : '';
-	if(id === '') {
+
+	if(id === '') {	
 		res.render('./../views/page/items/form', { title: pageTitleAdd });
-	}else {
-		res.render('./../views/page/items/form', { title: pageTitleEdit });
+	} else {
+		ItemsModel
+		.findById(id)
+		.then((item) => {
+			res.render(
+				'page/items/form',
+				{
+					title: pageTitleAdd,
+					item,			
+				}
+			);
+		})
 	}		
 });
 

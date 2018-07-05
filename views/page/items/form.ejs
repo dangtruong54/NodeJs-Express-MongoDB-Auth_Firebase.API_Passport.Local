@@ -17,28 +17,28 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-6">
-                            <form role="form" action="<%= sysConfig.systemAdmin %>/item/save/" method="POST">
+                            <form role="form" action="<%= sysConfig.systemAdmin %>/items/save/" method="POST">
                                 <div class="form-group">
                                     <label>Name</label>
-                                    <input class="form-control" name="name" value="" >
+                                    <input class="form-control" name="name" value=<%= (item !== null) ? item.name : "" %>>
                                 </div>
                                 <div class="form-group">
                                     <label>Ordering</label>
-                                    <input class="form-control" type="number" name="ordering" value="0" >
+                                    <input class="form-control" type="number" name="ordering" value=<%= (item !== null) ? item.ordering : "0" %>>
                                 </div>
                                 <div class="form-group">
                                     <label>Status</label>
                                     <select name="status" class="form-control" >
                                         <option value="novalue">Choose Status</option>
-                                        <option value="active"  >Active</option>
-                                        <option value="inactive"  >Inactive</option>
+                                        <option value="active" <%= (item !== null && item.status === "active") ? "selected" : "" %>>Active</option>
+                                        <option value="inactive" <%= (item !== null && item.status === "inactive") ? "selected" : "" %>>Inactive</option>
                                     </select>
                                 </div>
                                 <!-- <div class="form-group">
                                     <label>Content</label>
                                     <textarea class="form-control" name="content" rows="2"  id="content_ck" ></textarea>
                                     </div> -->
-                                <input class="form-control" name="id" value="" type="hidden" >
+                                <input class="form-control" name="id" value= <%= (item !== null) ? item.id : "" %> type="hidden" >
                                 <button type="submit" class="btn btn-primary">Submit </button>
                                 <a type="button" href="<%= sysConfig.systemAdmin %>/item/" class="btn btn-default">Cancel</a>
                             </form>

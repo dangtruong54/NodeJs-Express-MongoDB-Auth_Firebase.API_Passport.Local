@@ -13,10 +13,10 @@
                 <div class="row">
                     <div class="status-list col-sm-6 pl0">
                         <% include ./../../helper/filter-status %>
-                            <%- filterStatusHelper(statusActive, requestQuery) %>
+                        <%- filterStatusHelper(statusActive, requestQuery) %>
                     </div>
                     <div class="col-sm-6">
-                        <form action="<%= sysConfig.systemAdmin %>/items/<%= requestStatus %>" method="GET">
+                        <form action="<%= sysConfig.systemAdmin %>/items/status/<%= requestStatus %>" method="GET">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="keyword" placeholder="Search for..." value="<%= requestQuery %>">
                                 <input type="hidden" value="all">
@@ -25,7 +25,7 @@
                                 </span>
                                 <span class="input-group-btn">
                                     <button class="btn btn-success" type="button">
-                                        <a href="<%= sysConfig.systemAdmin %>/items/<%= requestStatus %>">Clear</a>
+                                        <a href="<%= sysConfig.systemAdmin %>/items/status/<%= requestStatus %>">Clear</a>
                                     </button>
                                 </span>
                             </div>
@@ -61,7 +61,7 @@
                         </select>
                         <button class="btn btn-info btnAction" type="button" id="btn-action" value="btnAction" disabled>Apply</button>
                         <div class="pull-right">
-                            <a href="<%= sysConfig.systemAdmin %>/items/form" class="btn btn-warning btn-addNew">Add New
+                            <a href="<%= sysConfig.systemAdmin %>/items/add" class="btn btn-warning btn-addNew">Add New
                             </a>
                         </div>
                     </div>
