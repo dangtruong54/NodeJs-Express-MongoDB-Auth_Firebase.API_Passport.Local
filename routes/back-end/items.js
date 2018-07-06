@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const ItemsModel = require('./../../schemas/items');
+const ItemsValidate = require('./../../validates/items');
 const UtilsHelper = require('./../../helper/utils');
 
 const sysConfig = require('./../../configs/system');
@@ -37,7 +38,7 @@ router.get('(/status/:status)?', (req, res, next) => {
 	let paramsPagination = {
 		totalItem,
 		currentPage,
-		itemPerPage: 2,
+		itemPerPage: 4,
 		pageRanges: 3
 	}
 	let statusActive = [];
@@ -94,7 +95,6 @@ router.get('/change-status/:id/:status', function (req, res, next) {
 });
 
 router.post('/change-status/:status', function (req, res, next) {
-
 	let currentStatus = req.params.status ? req.params.status : '';
 	ItemsModel.updateMany({ _id: {$in: req.body.cid} }, { status: currentStatus }, function (err, result) {		
 		req.flash('success', 'Cap nhat nhieu trang thai thanh cong', false);
@@ -148,26 +148,35 @@ router.post('/save', function (req, res, next) {
 
 	let item = { name: name, ordering: ordering, status: status };
 
-	if(id === '') {
-		console.log('aa');
-		new ItemsModel(item).save().then((err) => {	
-			req.flash('info', `Them moi item thanh cong`, false);
-			res.redirect(`/${sysConfig.systemAdmin}/items/`);
-		});
-	} else {
-		console.log('bbbb');
-		ItemsModel.update({ _id: id }, {name: name, status:  status, status: status}, (err, affect, resp) => {
-			req.flash('info', `Chinh sua item thanh cong`, false);
-			res.redirect(`/${sysConfig.systemAdmin}/items/`);
-		});		
-	}
+	// Validation
+	ItemsValidate.validates(req);
+
+	let errors = req.validationErrors();
+	
+	if(errors !== false){ // error	
+		res.render('./../views/page/items/form', { title: pageTitleAdd, errors });	
+	} else { // no error
+		if(id === '') {	
+			// new ItemsModel(item).save().then((err) => {	
+			// 	req.flash('info', `Them moi item thanh cong`, false);
+			// 	res.redirect(`/${sysConfig.systemAdmin}/items/`);
+			// });
+		} else {
+			// ItemsModel.update({ _id: id }, {name: name, status:  status, status: status}, (err, affect, resp) => {
+			// 	req.flash('info', `Chinh sua item thanh cong`, false);
+			// 	res.redirect(`/${sysConfig.systemAdmin}/items/`);
+			// });		
+		}
+	}	
+	
 })
 
 router.get('/add(/:id)?', function (req, res, next) {
 	const id = (req.params.id !== '') ? req.params.id : '';
-
+	let errors = null;	
 	if(id === '') {	
-		res.render('./../views/page/items/form', { title: pageTitleAdd });
+		let item = {name: '', ordering: 0, status: 'novalue'};
+		res.render('./../views/page/items/form', { title: pageTitleAdd,item, errors });
 	} else {
 		ItemsModel
 		.findById(id)
@@ -175,8 +184,9 @@ router.get('/add(/:id)?', function (req, res, next) {
 			res.render(
 				'page/items/form',
 				{
-					title: pageTitleAdd,
-					item,			
+					title: pageTitleEdit,
+					item,	
+					errors		
 				}
 			);
 		})
