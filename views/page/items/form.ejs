@@ -33,7 +33,7 @@
                                     <label>Content</label>
                                     <textarea class="form-control" name="content" rows="2"  id="content_ck" ></textarea>
                                     </div> -->
-                                <input class="form-control" name="id" value="<%= (item !== null && item !== undefined) ? item.id : ''%>" type="hidden" >
+                                <input class="form-control" name="id" value="<%= item.id %>" type="hidden" >
                                 <button type="submit" class="btn btn-primary">Submit </button>
                                 <a type="button" href="<%= sysConfig.systemAdmin %>/items/" class="btn btn-default">Cancel</a>
                             </form>

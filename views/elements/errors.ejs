@@ -2,7 +2,7 @@
 <div class="alert alert-danger" role="alert">
     <ul>
         <% errors.map((error,index) => { %>
-        <li>Name: không được rỗng</li>
+        <li><%= error.msg %></li>
         <% }) %>
     </ul>
 </div>
