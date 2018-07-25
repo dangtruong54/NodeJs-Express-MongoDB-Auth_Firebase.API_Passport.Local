@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const util = require('util');
 const ItemsModel = require('./../../schemas/items');
 const ItemsValidate = require('./../../validates/items');
 const UtilsHelper = require('./../../helper/utils');
@@ -12,8 +13,7 @@ var linkIndex = "/"  + sysConfig.systemAdmin + '/items';
 const pageTitle = 'Item Manage';
 const pageTitleAdd = pageTitle + '- Add';
 const pageTitleEdit = pageTitle + '- Edit';
-
-
+const linkView = 'page/items'
 
 /* GET items listing. */
 router.get('(/status/:status)?', (req, res, next) => {
@@ -101,8 +101,9 @@ router.get('/change-status/:id/:status', function (req, res, next) {
 
 router.post('/change-status/:status', function (req, res, next) {
 	let currentStatus = req.params.status ? req.params.status : '';
+	
 	ItemsModel.updateMany({ _id: {$in: req.body.cid} }, { status: currentStatus }, function (err, result) {		
-		req.flash('success', Notify.DELETE_MULTIL_ITEM, false);
+		req.flash('success', Notify.UPDATE_MULTIL_ITEM, false);
 		res.redirect(linkIndex);
 	});
 });
@@ -117,11 +118,12 @@ router.get('/delete/:id', function (req, res, next) {
 	});
 });
 
-router.post('/delete', function (req, res, next) {
-	
+router.post('/delete', function (req, res, next) {	
+
+	let numberItem = Array.isArray(req.body.cid) ? req.body.cid.length : 1;
 	ItemsModel.remove({ _id: { $in: req.body.cid } }, function (err) {			
 		if (err) return handleError(err);
-		req.flash('warning', `Xoa ${req.body.cid.length} item thanh cong`, false);
+		req.flash('warning', util.format(Notify.DELETE_MULTIL_ITEM, numberItem), false);
 		res.redirect(linkIndex);
 	});
 });
