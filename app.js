@@ -10,8 +10,9 @@ var logger = require('morgan');
 var expressLayouts = require('express-ejs-layouts');
 
 const mongoose = require('mongoose');
+const sysDatabase = require('./configs/database');
 
-mongoose.connect('mongodb://truongdx:thaibinh1991@ds229435.mlab.com:29435/nodejs_trainning');
+mongoose.connect(`mongodb://${sysDatabase.username}:${sysDatabase.password}@ds229435.mlab.com:29435/${sysDatabase.database}`);
 var db = mongoose.connection;
 
 db.on('error', () => {

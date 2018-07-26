@@ -61,7 +61,7 @@ router.get('(/status/:status)?', (req, res, next) => {
 			.skip((paramsPagination.currentPage - 1) * paramsPagination.itemPerPage)
 			.then((items) => {
 				res.render(
-					'page/items/item-list',
+					`${linkView}/item-list`,
 					{
 						title: pageTitle + ' List',
 						items,
@@ -161,7 +161,7 @@ router.post('/save', function (req, res, next) {
 	let errors = req.validationErrors();
 	
 	if(errors !== false){ // error	
-		res.render('./../views/page/items/form', { title: pageTitleAdd, errors, item });	
+		res.render(`./../views/${linkView}/form`, { title: pageTitleAdd, errors, item });	
 	} else { // no error
 		if(id === '') {	
 			new ItemsModel(item).save().then((err) => {	
@@ -183,13 +183,13 @@ router.get('/add(/:id)?', function (req, res, next) {
 	let errors = null;	
 	if(!id) {	
 		let item = {name: '', ordering: 0, status: 'novalue'};
-		res.render('./../views/page/items/form', { title: pageTitleAdd,item, errors });
+		res.render(`./../views/${linkView}/form`, { title: pageTitleAdd,item, errors });
 	} else {
 		ItemsModel
 		.findById(id)
 		.then((item) => {
 			res.render(
-				'page/items/form',
+				`${linkView}/form`,
 				{
 					title: pageTitleEdit,
 					item,	

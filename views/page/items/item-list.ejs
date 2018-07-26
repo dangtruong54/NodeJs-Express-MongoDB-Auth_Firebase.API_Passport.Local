@@ -1,11 +1,14 @@
 <%- locals.flash %>
-
+<% 
+    const collection = 'items';
+    const linkCollection = `${sysConfig.systemAdmin}/${collection}`;  
+%>
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-info">
             <div class="panel-heading">
                 Search & Filter
-                <a href="<%= sysConfig.systemAdmin %>/items/all">
+                <a href="/all">
                     <span id="icon-reload" class="glyphicon glyphicon-refresh"></span>
                 </a>
             </div>
@@ -16,7 +19,7 @@
                         <%- filterStatusHelper(statusActive, requestQuery) %>
                     </div>
                     <div class="col-sm-6">
-                        <form action="<%= sysConfig.systemAdmin %>/items/status/<%= requestStatus %>" method="GET">
+                        <form action="<%= linkCollection %>/status/<%= requestStatus %>" method="GET">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="keyword" placeholder="Search for..." value="<%= requestQuery %>">
                                 <input type="hidden" value="all">
@@ -25,7 +28,7 @@
                                 </span>
                                 <span class="input-group-btn">
                                     <button class="btn btn-success" type="button">
-                                        <a href="<%= sysConfig.systemAdmin %>/items/status/<%= requestStatus %>">Clear</a>
+                                        <a href="<%= linkCollection %>/status/<%= requestStatus %>">Clear</a>
                                     </button>
                                 </span>
                             </div>
@@ -46,22 +49,22 @@
                     <div class="zcontrols">
                         <select name="action" class="form-control slbAction">
                             <option value="">Bulk Action</option>
-                            <option value="<%= sysConfig.systemAdmin %>/items/change-status/active">
+                            <option value="<%= linkCollection %>/change-status/active">
                                 Active
                             </option>
-                            <option value="<%= sysConfig.systemAdmin %>/items/change-status/inactive">
+                            <option value="<%= linkCollection %>/change-status/inactive">
                                 InActive
                             </option>
-                            <option value="<%= sysConfig.systemAdmin %>/items/save-ordering/">
+                            <option value="<%= linkCollection %>/save-ordering/">
                                 Change Ordering
                             </option>
-                            <option value="<%= sysConfig.systemAdmin %>/items/delete/">
+                            <option value="<%= linkCollection %>/delete/">
                                 Delete
                             </option>
                         </select>
                         <button class="btn btn-info btnAction" type="button" id="btn-action" value="btnAction" disabled>Apply</button>
                         <div class="pull-right">
-                            <a href="<%= sysConfig.systemAdmin %>/items/add" class="btn btn-warning btn-addNew">Add New
+                            <a href="<%= linkCollection %>/add" class="btn btn-warning btn-addNew">Add New
                             </a>
                         </div>
                     </div>
@@ -94,14 +97,14 @@
                                                 <%= item.name %>
                                             </td>
                                             <td>
-                                                <%- statusHelper(item.status, item.id, 'items') %>
+                                                <%- statusHelper(item.status, item.id, collection) %>
                                             </td>
                                             <td>
                                                 <input type="number" name="ordering" value="<%= item.ordering %>" class="text-center ordering">
                                             </td>
                                             <td>
-                                                <a href="<%= sysConfig.systemAdmin %>/items/add/<%= item.id %>" type="button" class="btn btn-warning btn-sm">Edit</a>
-                                                <a href="<%= sysConfig.systemAdmin %>/items/delete/<%= item.id %>" type="button" class="btn btn-danger btn-sm btn-delete">Delete</a>
+                                                <a href="<%= linkCollection %>/add/<%= item.id %>" type="button" class="btn btn-warning btn-sm">Edit</a>
+                                                <a href="<%= linkCollection %>/delete/<%= item.id %>" type="button" class="btn btn-danger btn-sm btn-delete">Delete</a>
                                             </td>
                                         </tr>
                                     <%  }) %>
@@ -114,7 +117,7 @@
     </div>
     <div class="col-lg-12">
         <% include ./../../helper/pagination %>
-        <%- paginationHelper(paramsPagination, 'items', requestStatus, requestQuery) %>
+        <%- paginationHelper(paramsPagination, collection, requestStatus, requestQuery) %>
     </div>
 </div>
 </div>
