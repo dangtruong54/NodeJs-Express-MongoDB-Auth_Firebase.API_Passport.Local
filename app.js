@@ -9,6 +9,12 @@ var logger = require('morgan');
 
 var expressLayouts = require('express-ejs-layouts');
 
+global.__base = __dirname + '/';
+global.__base_configs = __base + 'configs';
+global.__base_helper = __base + 'helper';
+global.__base_helper = __base + 'schemas';
+global.__base_validates = __base + 'validates';
+
 const mongoose = require('mongoose');
 const sysDatabase = require('./configs/database');
 

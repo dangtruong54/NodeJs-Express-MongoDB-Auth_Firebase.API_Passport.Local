@@ -1,15 +1,15 @@
 var express = require('express');
 var router = express.Router();
 const util = require('util');
-const ItemsModel = require('./../../schemas/items');
-const ItemsValidate = require('./../../validates/items');
-const UtilsHelper = require('./../../helper/utils');
+const ItemsModel = require('/items');
+const ItemsValidate = require( __base_validates + '/items');
+const UtilsHelper = require( __base_helper + '/utils');
 const Notify = require('./../../helper/notify');
 
 const sysConfig = require('./../../configs/system');
 
 var linkIndex = "/"  + sysConfig.systemAdmin + '/items';
-
+console.log(__base_configs);
 const pageTitle = 'Item Manage';
 const pageTitleAdd = pageTitle + '- Add';
 const pageTitleEdit = pageTitle + '- Edit';
