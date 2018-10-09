@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const collectionDB = require('./../configs/database');
+const collectionDB = require(__base_configs + '/database');
 
 var schema = new mongoose.Schema({ 
         name: String,

@@ -10,13 +10,13 @@ var logger = require('morgan');
 var expressLayouts = require('express-ejs-layouts');
 
 global.__base = __dirname + '/';
-global.__base_configs = __base + 'configs';
+global.__base_configs = __base + '/app/configs';
 global.__base_helper = __base + 'helper';
-global.__base_helper = __base + 'schemas';
+global.__base_schemas = __base + 'schemas';
 global.__base_validates = __base + 'validates';
 
 const mongoose = require('mongoose');
-const sysDatabase = require('./configs/database');
+const sysDatabase = require(__base_configs + '/database');
 
 mongoose.connect(`mongodb://${sysDatabase.username}:${sysDatabase.password}@ds229435.mlab.com:29435/${sysDatabase.database}`);
 var db = mongoose.connection;
@@ -60,7 +60,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const sysConfig = require('./configs/system');
+const sysConfig = require(__base_configs + '/system');
 
 app.locals.sysConfig = sysConfig;
 

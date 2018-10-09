@@ -1,22 +1,22 @@
 var express = require('express');
 var router = express.Router();
 const util = require('util');
-const ItemsModel = require('/items');
+const ItemsModel = require(__base_schemas + '/items');
 const ItemsValidate = require( __base_validates + '/items');
 const UtilsHelper = require( __base_helper + '/utils');
-const Notify = require('./../../helper/notify');
+const Notify = require(__base_helper + '/notify');
 
-const sysConfig = require('./../../configs/system');
+const sysConfig = require(__base_configs + '/system');
 
 var linkIndex = "/"  + sysConfig.systemAdmin + '/items';
-console.log(__base_configs);
+
 const pageTitle = 'Item Manage';
 const pageTitleAdd = pageTitle + '- Add';
 const pageTitleEdit = pageTitle + '- Edit';
 const linkView = 'page/items'
 
 /* GET items listing. */
-router.get('(/status/:status)?', (req, res, next) => {
+router.get('(/status/:status)?', async(req, res, next) => {
 	let requestStatus = "";
 	requestStatus = req.params.status;
 	requestStatus = (requestStatus == undefined) ? 'all' : requestStatus;
@@ -26,7 +26,7 @@ router.get('(/status/:status)?', (req, res, next) => {
 
 	let objWhere = {};
 
-	if (requestStatus != 'all') {
+	if (requestStatus !== 'all') {
 		objWhere = {
 			status: requestStatus,
 			name: new RegExp(requestQuery, 'i')
@@ -52,9 +52,11 @@ router.get('(/status/:status)?', (req, res, next) => {
 		statusActive = UtilsHelper.statusHelper(items, requestStatus);
 	})
 
-	ItemsModel.count(objWhere).then(function (items) {
-		paramsPagination.totalItem = items;
-		ItemsModel
+	await ItemsModel.count(objWhere).then(function (items) {
+		paramsPagination.totalItem = items;			
+	})
+	console.log(paramsPagination.totalItem);
+	ItemsModel
 			.find(objWhere)
 			.sort({ ordering: 'asc' })
 			.limit(paramsPagination.itemPerPage)
@@ -72,7 +74,6 @@ router.get('(/status/:status)?', (req, res, next) => {
 					}
 				);
 			})
-	})
 });
 
 router.get('/change-status/:id/:status', function (req, res, next) {
