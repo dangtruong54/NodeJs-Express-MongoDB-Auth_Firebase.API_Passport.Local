@@ -15,6 +15,7 @@ global.__base_helper = __base + 'helper';
 global.__base_schemas = __base + 'schemas';
 global.__base_validates = __base + 'validates';
 global.__base_controllers = __base + 'controllers';
+global.__base_authentication = __base + 'middleware';
 
 const mongoose = require('mongoose');
 const sysDatabase = require(__base_configs + '/database');

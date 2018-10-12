@@ -3,18 +3,23 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "test-auth": "nyc --reporter=html --reporter=text mocha \"test/*.js\" --exit",
+    "codecov": "nyc report --reporter=lcov > coverage.lcov && codecov --token=f6e0097e-08ca-4f73-8e48-213c07e3e714"
   },
   "dependencies": {
+    "assert": "^1.4.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
-    "ejs": "~2.5.7",
     "express": "~4.16.0",
     "express-ejs-layouts": "^2.4.0",
     "express-flash-notification": "^0.5.0",
     "express-session": "^1.15.6",
     "express-validator": "^5.2.0",
+    "firebase": "^5.5.4",
+    "firebase-admin": "^6.0.0",
+    "firebase-auth-node": "^1.0.3",
     "http-errors": "~1.6.2",
+    "mocha": "^5.2.0",
     "mongoose": "^5.1.4",
     "mongoose-paginate": "^5.0.3",
     "morgan": "~1.9.0",
