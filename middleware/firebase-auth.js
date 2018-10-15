@@ -34,7 +34,6 @@ class FirebaseAuth {
             .then((user) => {
                 return this.firebase.auth().currentUser.getIdToken(true)
                     .then((idToken) => {
-                        console.log(idToken);
                         return { idToken: idToken, uid: user.uid };
                     })
                     .catch((error) => {
@@ -54,6 +53,16 @@ class FirebaseAuth {
      */
     authToken(idToken) {
         return this.admin.auth().verifyIdToken(idToken);
+    }
+
+    /**
+     * Create user
+     *
+     * @promise {Boolean} Returns true if successful
+     * @rejects {Object} Returns an object with errors if rejected
+     */
+    createUser(email, password) {
+        return this.firebase.auth().createUserWithEmailAndPassword(email, password);
     }
 }
 

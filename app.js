@@ -29,7 +29,6 @@ db.on('error', () => {
 db.once('open', () => {
   console.log('Connected!');
 })
-
 var app = express();
 
 app.use(cookieParser());

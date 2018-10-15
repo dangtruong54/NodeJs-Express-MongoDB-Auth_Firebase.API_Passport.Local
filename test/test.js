@@ -16,6 +16,13 @@ describe('test', () => {
             });
     });
 
+    it('createUser with firebase auth node', () => {
+        return firebaseAuth.createUser('truongdx1@beetsoft.com.vn', 'Truong@123456')
+            .then((res,) => {
+                assert('object', typeof(res));
+            });
+    });
+
     it('signIn should return a an object code and message', () => {
         return firebaseAuth.signIn('fail', 'fail')
             .catch((err) => {
