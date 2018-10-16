@@ -67,6 +67,7 @@ app.locals.sysConfig = sysConfig;
 
 app.use(`/${sysConfig.systemAdmin}`, require('./routes/back-end/index'));
 app.use('/', require('./routes/front-end/index'));
+app.use('/', require('./routes/api/index'));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

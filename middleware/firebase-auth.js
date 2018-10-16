@@ -37,11 +37,13 @@ class FirebaseAuth {
                         return { idToken: idToken, uid: user.uid };
                     })
                     .catch((error) => {
-                        throw { code: error.code, message: error.message };
+                        return { code: error.code, message: error.message };
                     });
             })
             .catch((error) => {
-                throw { code: error.code, message: error.message };
+                // console.log(typeof error);
+                // return error.json;
+                return { code: error.code, message: error.message };
             });
     }
 
