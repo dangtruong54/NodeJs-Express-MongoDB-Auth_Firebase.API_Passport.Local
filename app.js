@@ -1,6 +1,7 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
+var passport = require('passport');
 const flash = require('express-flash-notification');
 const validator = require('express-validator');
 const cookieParser = require('cookie-parser');
@@ -9,7 +10,10 @@ var logger = require('morgan');
 
 var expressLayouts = require('express-ejs-layouts');
 
-const checkAuth = require('./middleware/authentication');
+// const checkAuth = require('./middleware/authentication');
+
+// pass passport for configuration
+require('.//passport')(passport);
 
 global.__base = __dirname + '/';
 global.__base_configs = __base + '/app/configs';
@@ -38,7 +42,10 @@ app.use(session({
   secret: '456tndndm333',
   resave: false,
   saveUninitialized: true,
-}))
+}));
+
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
 app.use(flash(app));
 
 app.use(validator({
@@ -56,6 +63,7 @@ app.set('view engine', 'ejs');
 app.use(expressLayouts);
 
 app.set('layout', 'backend');
+// app.set('layout', 'frontend');
 
 // app.use(logger('dev'));
 app.use(express.json());
@@ -67,9 +75,9 @@ const sysConfig = require(__base_configs + '/system');
 
 app.locals.sysConfig = sysConfig;
 
-app.use(`/${sysConfig.systemAdmin}`,checkAuth, require('./routes/back-end/index'));
+app.use(`/${sysConfig.systemAdmin}`, require('./routes/back-end/index'));
 app.use('/', require('./routes/front-end/index'));
-app.use('/', require('./routes/api/index'));
+// app.use('/', require('./routes/api/index'));    using for api login
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

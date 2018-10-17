@@ -10,4 +10,7 @@ module.exports = {
     ERROR_NAME: "Phải nằm từ %d đến %d kí tự",
     ERROR_ORDERING: "Phải là số lớn hơn %s và nhỏ hơn %s",
     ERROR_STATUS: "Phải chọn 1 trạng thái",
+
+    LOGIN_PAGE: "Page Login",
+    ERROR_LOGIN: "Email or Password is incorrect"
 }
