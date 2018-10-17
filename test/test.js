@@ -3,7 +3,7 @@
 
 let serviceKey = require( '../app/configs/firebase-service-key.json');
 let firebaseConfig = require( '../app/configs/firebase-config.json');
-let FirebaseAuth = require( '../middleware/firebase-auth.js');
+let FirebaseAuth = require( '../helper/firebase-auth.js');
 let assert = require('assert');
 
 describe('test', () => {
@@ -29,6 +29,13 @@ describe('test', () => {
                 assert('object', typeof(err));
             });
     });
+
+    it('get info user with email', () => {
+        return firebaseAuth.getUserByEmail('truongdx@beetsoft.com.vn')
+            .catch((err) => {
+                assert('object', typeof(err));
+            })
+    })
 
     it('authToken should return true if token is valid', () => {
         return firebaseAuth.signIn('truongdx@beetsoft.com.vn', 'Truong@123')

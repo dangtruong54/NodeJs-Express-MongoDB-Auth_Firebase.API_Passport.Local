@@ -9,6 +9,8 @@ var logger = require('morgan');
 
 var expressLayouts = require('express-ejs-layouts');
 
+const checkAuth = require('./middleware/authentication');
+
 global.__base = __dirname + '/';
 global.__base_configs = __base + '/app/configs';
 global.__base_helper = __base + 'helper';
@@ -65,7 +67,7 @@ const sysConfig = require(__base_configs + '/system');
 
 app.locals.sysConfig = sysConfig;
 
-app.use(`/${sysConfig.systemAdmin}`, require('./routes/back-end/index'));
+app.use(`/${sysConfig.systemAdmin}`,checkAuth, require('./routes/back-end/index'));
 app.use('/', require('./routes/front-end/index'));
 app.use('/', require('./routes/api/index'));
 

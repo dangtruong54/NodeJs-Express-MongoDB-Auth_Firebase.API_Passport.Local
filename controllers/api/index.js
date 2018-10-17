@@ -1,6 +1,6 @@
 let serviceKey = require( '../../app/configs/firebase-service-key.json');
 let firebaseConfig = require( '../../app/configs/firebase-config.json');
-let FirebaseAuth = require( '../../middleware/firebase-auth.js');
+let FirebaseAuth = require( '../../helper/firebase-auth.js');
 
 let firebaseAuth = new FirebaseAuth(firebaseConfig, serviceKey)
 
