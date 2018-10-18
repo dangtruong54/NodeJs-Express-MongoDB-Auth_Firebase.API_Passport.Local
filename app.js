@@ -10,11 +10,6 @@ var logger = require('morgan');
 
 var expressLayouts = require('express-ejs-layouts');
 
-// const checkAuth = require('./middleware/authentication');
-
-// pass passport for configuration
-require('.//passport')(passport);
-
 global.__base = __dirname + '/';
 global.__base_configs = __base + '/app/configs';
 global.__base_helper = __base + 'helper';
@@ -35,6 +30,7 @@ db.on('error', () => {
 db.once('open', () => {
   console.log('Connected!');
 })
+
 var app = express();
 
 app.use(cookieParser());
@@ -44,6 +40,10 @@ app.use(session({
   saveUninitialized: true,
 }));
 
+// const checkAuth = require('./middleware/authentication');
+
+// pass passport for configuration
+require('./helper/passport')(passport);
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash(app));
@@ -63,7 +63,6 @@ app.set('view engine', 'ejs');
 app.use(expressLayouts);
 
 app.set('layout', 'backend');
-// app.set('layout', 'frontend');
 
 // app.use(logger('dev'));
 app.use(express.json());
@@ -76,7 +75,7 @@ const sysConfig = require(__base_configs + '/system');
 app.locals.sysConfig = sysConfig;
 
 app.use(`/${sysConfig.systemAdmin}`, require('./routes/back-end/index'));
-app.use('/', require('./routes/front-end/index'));
+require('./routes/front-end/auth-passport.js')(app, passport); // load our routes and pass in our app and fully configured passport
 // app.use('/', require('./routes/api/index'));    using for api login
 
 // catch 404 and forward to error handler
