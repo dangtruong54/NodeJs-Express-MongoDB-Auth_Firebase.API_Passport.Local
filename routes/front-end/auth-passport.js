@@ -1,3 +1,4 @@
+const checkLogin = require(__base_authentication + '/passport');
 const Notify = require(__base_helper + '/notify');
 module.exports = function(app, passport) {
 
@@ -9,7 +10,7 @@ module.exports = function(app, passport) {
     });
 
     // PROFILE SECTION =========================
-    app.get('/profile', isLoggedIn, function(req, res) {
+    app.get('/profile', checkLogin.isLoggedIn, function(req, res) {
         res.render('page/publish/profile', {
             user : req.user, title: 'Profile Page'
         });
@@ -151,7 +152,7 @@ module.exports = function(app, passport) {
 // user account will stay active in case they want to reconnect in the future
 
     // local -----------------------------------
-    app.get('/unlink/local', isLoggedIn, function(req, res) {
+    app.get('/unlink/local', checkLogin.isLoggedIn, function(req, res) {
         var user            = req.user;
         user.local.email    = undefined;
         user.local.password = undefined;
@@ -161,7 +162,7 @@ module.exports = function(app, passport) {
     });
 
     // facebook -------------------------------
-    app.get('/unlink/facebook', isLoggedIn, function(req, res) {
+    app.get('/unlink/facebook', checkLogin.isLoggedIn, function(req, res) {
         var user            = req.user;
         user.facebook.token = undefined;
         user.save(function(err) {
@@ -170,7 +171,7 @@ module.exports = function(app, passport) {
     });
 
     // twitter --------------------------------
-    app.get('/unlink/twitter', isLoggedIn, function(req, res) {
+    app.get('/unlink/twitter', checkLogin.isLoggedIn, function(req, res) {
         var user           = req.user;
         user.twitter.token = undefined;
         user.save(function(err) {
@@ -179,7 +180,7 @@ module.exports = function(app, passport) {
     });
 
     // google ---------------------------------
-    app.get('/unlink/google', isLoggedIn, function(req, res) {
+    app.get('/unlink/google', checkLogin.isLoggedIn, function(req, res) {
         var user          = req.user;
         user.google.token = undefined;
         user.save(function(err) {
@@ -189,11 +190,3 @@ module.exports = function(app, passport) {
 
 
 };
-
-// route middleware to ensure user is logged in
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated())
-        return next();
-
-    res.redirect('/');
-}

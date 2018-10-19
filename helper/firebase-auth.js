@@ -41,8 +41,6 @@ class FirebaseAuth {
                     });
             })
             .catch((error) => {
-                // console.log(typeof error);
-                // return error.json;
                 return { code: error.code, message: error.message };
             });
     }

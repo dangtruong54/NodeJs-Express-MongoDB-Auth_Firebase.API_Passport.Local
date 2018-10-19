@@ -71,7 +71,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 const sysConfig = require(__base_configs + '/system');
-
 app.locals.sysConfig = sysConfig;
 
 app.use(`/${sysConfig.systemAdmin}`, require('./routes/back-end/index'));
