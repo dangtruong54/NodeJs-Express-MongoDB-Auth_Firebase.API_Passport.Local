@@ -3,14 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="fe3bd628-6ef7-48a6-b7de-87486f75d2ec" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/ejs/Jakefile" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/ejs/Jakefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/ejs/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/ejs/LICENSE" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/ejs/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/ejs/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/ejs/ejs.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/ejs/ejs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/ejs/ejs.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/ejs/ejs.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/ejs/lib/ejs.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/ejs/lib/ejs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/ejs/lib/utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/ejs/lib/utils.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/ejs/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/ejs/package.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -133,8 +125,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+            <state relative-caret-position="187">
+              <caret line="11" column="21" lean-forward="true" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -186,7 +178,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>morgan</find>
       <find>__base_schemas</find>
       <find>ItemsModel</find>
       <find>req.flash</find>
@@ -205,7 +196,6 @@
       <find>col_item</find>
       <find>front</find>
       <find>helper</find>
-      <find>Body Home Page</find>
       <find>express</find>
       <find>app.use(flash</find>
       <find>flash</find>
@@ -216,6 +206,8 @@
       <find>&lt;a href=&quot;/signup&quot; class=&quot;btn btn-default&quot;&gt;&lt;span class=&quot;fa fa-user&quot;&gt;&lt;/span&gt; Local Signup&lt;/a&gt;</find>
       <find>console.log</find>
       <find>front-end</find>
+      <find>login.html</find>
+      <find>Body Home Page</find>
     </findStrings>
     <dirStrings>
       <dir>E:\TruongDX\Nodejs\NodeJs-Express</dir>
@@ -418,12 +410,12 @@
       <workItem from="1539739940972" duration="26104000" />
       <workItem from="1539824477904" duration="4728000" />
       <workItem from="1539832275391" duration="17650000" />
-      <workItem from="1539911128859" duration="15827000" />
+      <workItem from="1539911128859" duration="17028000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="140189000" />
+    <option name="totallyTimeSpent" value="141390000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -438,7 +430,7 @@
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23200513" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23200513" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -453,7 +445,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32884097" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.41778976" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.41778976" />
       <window_info anchor="bottom" id="TypeScript" order="12" weight="0.32884097" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -830,8 +822,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+        <state relative-caret-position="187">
+          <caret line="11" column="21" lean-forward="true" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
         </state>
       </provider>
     </entry>
