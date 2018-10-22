@@ -75,7 +75,7 @@ module.exports = {
             })
     },
 
-    changeStatusItem : (req, res, c) => {
+    changeStatusItem : (req, res, next) => {
 
         let id = req.params.id ? req.params.id : '';
         let currentStatus = req.params.status ? req.params.status : '';
